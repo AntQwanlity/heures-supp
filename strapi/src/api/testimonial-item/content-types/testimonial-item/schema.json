@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testimonial_items",
+  "info": {
+    "singularName": "testimonial-item",
+    "pluralName": "testimonial-items",
+    "displayName": "Testimonial item",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "text",
+      "unique": true,
+      "required": true
+    },
+    "authorName": {
+      "type": "string",
+      "unique": false,
+      "required": true
+    },
+    "authorTitle": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "authorAvatar": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "testimonialss",
+  "info": {
+    "singularName": "testimonials",
+    "pluralName": "testimonialss",
+    "displayName": "Testimonials"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::testimonial-item.testimonial-item"
+    }
+  }
+}

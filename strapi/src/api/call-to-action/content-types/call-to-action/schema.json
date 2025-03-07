@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "call_to_actions",
+  "info": {
+    "singularName": "call-to-action",
+    "pluralName": "call-to-actions",
+    "displayName": "Call to action"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "subtitle": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "cta": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

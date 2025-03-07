@@ -1,0 +1,14 @@
+{
+  "name": "pupetter",
+  "private": true,
+  "version": "1.0.0",
+  "description": "puppeteer",
+  "author": "Puppeteer",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.2.0",
+    "google-auth-library": "^8.8.0",
+    "puppeteer": "^20.2.1"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "secondary_feat_features",
+  "info": {
+    "singularName": "secondary-feat-feature",
+    "pluralName": "secondary-feat-features",
+    "displayName": "Secondary feat feature",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "summary": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "unique": true
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": ["reporting", "list", "contact"],
+      "required": true
+    }
+  }
+}

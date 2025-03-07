@@ -1,0 +1,56 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - "--no-cache"
+      - "--network=cloudbuild"
+      - "-t"
+      - >-
+        $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+      - "-f"
+      - heures-supp/strapi/Dockerfile
+      - heures-supp/strapi/
+    id: Build
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - >-
+        $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+    id: Push
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
+    args:
+      - run
+      - services
+      - update
+      - $_SERVICE_NAME
+      - "--platform=managed"
+      - >-
+        --image=$_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID
+      - "--region=$_DEPLOY_REGION"
+      - "--quiet"
+      - "--set-cloudsql-instances=$_INSTANCE_CONNECTION_NAME"
+      - "--min-instances=0"
+      - "--max-instances=1"
+      - "--cpu-boost"
+      - "--service-account=$_SERVICE_ACCOUNT"
+      - "--set-secrets=APP_KEYS=strapi_app_keys:latest,JWT_SECRET=strapi_jwt_secret:latest,WEBHOOK_TOKEN=strapi_api_webhook_token:latest,ADMIN_JWT_SECRET=strapi_admin_jwt_secret:latest,API_TOKEN_SALT=strapi_api_token_salt:latest,TRANSFER_TOKEN_SALT=strapi_transfer_token_salt:latest,DATABASE_HOST=strapi_db_host:latest,DATABASE_NAME=strapi_db_name:latest,DATABASE_USERNAME=strapi_db_username:latest,DATABASE_PASSWORD=strapi_db_password:latest,DATABASE_SCHEMA=strapi_db_schema:latest,BUCKET_NAME=strapi_bucket_name:latest"
+    id: Deploy
+    entrypoint: gcloud
+images:
+  - >-
+    $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _DEPLOY_REGION: europe-west1
+  _AR_HOSTNAME: europe-west1-docker.pkg.dev
+  _PLATFORM: managed
+  _SERVICE_NAME: strapi
+  _INSTANCE_CONNECTION_NAME: heures-supp-prod:europe-west1:heures-supp-prod
+  _SERVICE_ACCOUNT: heures-supp-prod-run@heures-supp-prod.iam.gserviceaccount.com
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - strapi

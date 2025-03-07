@@ -1,0 +1,89 @@
+{
+  "kind": "singleType",
+  "collectionName": "primary_feats",
+  "info": {
+    "singularName": "primary-feat",
+    "pluralName": "primary-feats",
+    "displayName": "Primary features"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "feat1Title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "feat1Subtitle": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "feat1Image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "feat2Title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "feat2Subtitle": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "feat2Image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "feat3Title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "feat3Subtitle": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "feat3Image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "feat4Title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "feat4Subtitle": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "feat4Image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

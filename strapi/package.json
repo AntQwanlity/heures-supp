@@ -1,0 +1,35 @@
+{
+  "name": "strapi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@strapi-community/strapi-provider-upload-google-cloud-storage": "^4.10.5",
+    "@strapi/plugin-i18n": "^4.11.7",
+    "@strapi/plugin-seo": "^1.9.2",
+    "@strapi/plugin-users-permissions": "^4.11.7",
+    "@strapi/strapi": "^4.11.7",
+    "pg": "^8.11.1",
+    "react-markdown": "^8.0.7",
+    "strapi-plugin-cookie-manager": "^1.1.3",
+    "strapi-plugin-populate-deep": "^2.0.0"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "700e83fa-6134-4a89-990d-7fb0615f2372",
+    "telemetryDisabled": true
+  },
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

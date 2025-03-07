@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "secondary_feats",
+  "info": {
+    "singularName": "secondary-feat",
+    "pluralName": "secondary-feats",
+    "displayName": "Secondary features",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "features": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::secondary-feat-feature.secondary-feat-feature"
+    }
+  }
+}

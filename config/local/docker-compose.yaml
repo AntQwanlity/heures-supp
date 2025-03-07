@@ -1,0 +1,35 @@
+services:
+  #dossier:
+  #  build:
+  #    context: ../../../..
+  #    dockerfile: apps/web/config/local/Dockerfile
+  #  ports:
+  #    - 3000:3000
+  #  depends_on:
+  #    - firebase_emulator
+  #    - db
+  #  environment:
+  #    FIREBASE_AUTH_EMULATOR_HOST: firebase_emulator:9099
+  #  volumes:
+  #    - ../../../..:/usr/src/app
+  #    - /usr/src/app/src/main/node_modules
+  #    - /usr/src/app/apps/web/node_modules
+  #    - /usr/src/app/apps/web/.next
+  db:
+    container_name: db
+    image: postgres:15.2-bullseye
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+  firebase_emulator:
+    build:
+      context: ../..
+      dockerfile: config/local/firebase_emulator/Dockerfile
+    ports:
+      - 4000:4000
+      - 9099:9099
+    volumes:
+      - /usr/src/app/.cache/firebase/emulators

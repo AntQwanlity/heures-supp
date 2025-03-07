@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgres://postgres:postgres@localhost:5432/postgres" // Overrided dynamically during startup
+}
+
+enum Sex {
+  male
+  female
+}
+
+enum UserType {
+  lawyer
+  employee
+}
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String
+  user_type UserType
+
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+
+  firebase_user FirebaseUser?
+  Lawyer        Lawyer[]
+  Client        Client[]
+
+  @@index([email])
+  @@map("user")
+}
+
+model FirebaseUser {
+  user_id     String @id @db.Uuid
+  firebase_id String @unique
+
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+
+  user User @relation(fields: [user_id], references: [id])
+
+  @@index([firebase_id])
+  @@map("firebase_user")
+}
+
+model Lawyer {
+  user_id String @id @db.Uuid
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  user        User        @relation(fields: [user_id], references: [id])
+  legal_cases LegalCase[]
+
+  @@map("lawyer")
+}
+
+model Client {
+  user_id String @id @db.Uuid
+
+  sex        Sex?
+  first_name String
+  last_name  String
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  user        User        @relation(fields: [user_id], references: [id])
+  legal_cases LegalCase[]
+
+  @@map("client")
+}
+
+model LegalCase {
+  id String @id @default(uuid()) @db.Uuid
+
+  lawyer_id           String   @db.Uuid
+  client_id           String?  @db.Uuid
+  weekly_hours        Int
+  starts_at           DateTime @db.Timestamptz
+  ends_at             DateTime @db.Timestamptz
+  base_monthly_salary Int
+  magic_link_token    String
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  lawyer      Lawyer      @relation(fields: [lawyer_id], references: [user_id])
+  client      Client?     @relation(fields: [client_id], references: [user_id])
+  salaries    Salary[]
+  worked_days WorkedDay[]
+
+  @@unique([lawyer_id, client_id])
+  @@map("legal_case")
+}
+
+model Salary {
+  id String @id @default(uuid()) @db.Uuid
+
+  legal_case_id String   @db.Uuid
+  date          DateTime @db.Timestamptz
+  amount        Int
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  legal_case LegalCase @relation(fields: [legal_case_id], references: [id])
+
+  @@map("salary")
+}
+
+model WorkedDay {
+  id String @id @default(uuid()) @db.Uuid
+
+  legal_case_id       String   @db.Uuid
+  morning_starts_at   DateTime @db.Timestamptz
+  morning_ends_at     DateTime @db.Timestamptz
+  afternoon_starts_at DateTime @db.Timestamptz
+  afternoon_ends_at   DateTime @db.Timestamptz
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  legal_case LegalCase @relation(fields: [legal_case_id], references: [id])
+
+  @@map("worked_day")
+}

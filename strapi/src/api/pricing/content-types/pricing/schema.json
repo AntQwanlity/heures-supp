@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "pricings",
+  "info": {
+    "singularName": "pricing",
+    "pluralName": "pricings",
+    "displayName": "Pricing",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "subtitle": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "pricingPlans": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pricing-plan.pricing-plan"
+    }
+  }
+}
